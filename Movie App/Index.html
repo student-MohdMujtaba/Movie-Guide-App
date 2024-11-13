@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+    <title>Movie Guide App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @media(max-width: 1200px) {
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* nav-bar  */
+            nav {
+                background-color: #232f3e;
+                color: white;
+            }
+
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .search-container input,
+            button {
+                padding: 5px 10px;
+                border: none;
+                font-size: 16px;
+            }
+
+            .search-container input {
+                border-radius: 6px;
+            }
+
+            .search-container button {
+                border-radius: 6px;
+                background-color: #f5c518;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .search-container button:hover {
+                background-color: #ffdd45;
+            }
+
+            /* Main Section  */
+            main {
+                max-width: 1200px;
+                margin: 0 auto;
+                margin-block: 40px;
+            }
+
+            main section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 72vh;
+                /* border: 2px solid red; */
+            }
+
+            .movie-container {
+                display: flex;
+                justify-content: center;
+                box-shadow: 0px 0px 10px #ccc;
+                width: 80%;
+                border-radius: 5px;
+                /* border: 2px solid black; */
+            }
+
+            .movie-poster img {
+                height: 450px;
+                margin-right: 35px;
+                border-radius: 5px;
+            }
+
+            .movie-info {
+                padding-inline: 15px;
+            }
+
+            .movie-info h2 {
+                text-align: center;
+                font-size: 30px;
+                margin: 20px 0px 12px 0px;
+            }
+
+            .movie-info h2+p {
+                text-align: center;
+            }
+
+            .movie-info .movie-genre {
+                display: flex;
+                justify-content: center;
+                margin-block: 5px;
+            }
+
+            .movie-info .movie-genre p {
+                background-color: #232f3e;
+                color: white;
+                padding: 5px 14px;
+                margin-inline: 5px;
+                border: 2px solid black;
+                border-radius: 5px;
+                font-weight: 700;
+            }
+
+            .movie-info p {
+                font-size: 18px;
+                margin-block: 16px;
+                line-height: 24px;
+            }
+
+            .noBackground {
+                box-shadow: none;
+                background: none;
+            }
+
+            /* FOOTER SECTION  */
+            footer {
+                text-align: center;
+                background-color: #232f3e;
+                color: white;
+                padding-block: 20px;
+                margin-top: 40px;
+                font-size: 20px;
+            }
+        }
+
+        @media(max-width: 1000px) {
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* nav-bar  */
+            nav {
+                background-color: #232f3e;
+                color: white;
+            }
+
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .search-container input,
+            button {
+                padding: 5px 10px;
+                border: none;
+                font-size: 16px;
+            }
+
+            .search-container input {
+                border-radius: 6px;
+            }
+
+            .search-container button {
+                border-radius: 6px;
+                background-color: #f5c518;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .search-container button:hover {
+                background-color: #ffdd45;
+            }
+
+            /* Main Section  */
+            main {
+                max-width: 1200px;
+                margin: 0 auto;
+                margin-block: 40px;
+            }
+
+            main section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 72vh;
+                /* border: 2px solid red; */
+            }
+
+            .movie-container {
+                display: flex;
+                justify-content: center;
+                box-shadow: 0px 0px 10px #ccc;
+                width: 80%;
+                border-radius: 5px;
+                /* border: 2px solid black; */
+            }
+
+            .movie-poster img {
+                height: 450px;
+                margin-right: 35px;
+                border-radius: 5px;
+            }
+
+            .movie-info {
+                padding-inline: 15px;
+            }
+
+            .movie-info h2 {
+                text-align: center;
+                font-size: 25px;
+                margin: 20px 0px 12px 0px;
+            }
+
+            .movie-info h2+p {
+                text-align: center;
+            }
+
+            .movie-info .movie-genre {
+                display: flex;
+                justify-content: center;
+                margin-block: 5px;
+            }
+
+            .movie-info .movie-genre p {
+                background-color: #232f3e;
+                color: white;
+                padding: 5px 14px;
+                margin-inline: 5px;
+                border: 2px solid black;
+                border-radius: 5px;
+                font-weight: 700;
+            }
+
+            .movie-info p {
+                font-size: 15px;
+                margin-block: 16px;
+                line-height: 24px;
+            }
+
+            .noBackground {
+                box-shadow: none;
+                background: none;
+            }
+
+            /* FOOTER SECTION  */
+            footer {
+                text-align: center;
+                background-color: #232f3e;
+                color: white;
+                padding-block: 20px;
+                margin-top: 40px;
+                font-size: 17px;
+            }
+        }
+
+        @media(max-width: 650px) {
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* nav-bar  */
+            nav {
+                background-color: #232f3e;
+                color: white;
+            }
+
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .search-container input,
+            button {
+                padding: 5px 10px;
+                border: none;
+                font-size: 16px;
+            }
+
+            .search-container input {
+                border-radius: 6px;
+            }
+
+            .search-container button {
+                border-radius: 6px;
+                background-color: #f5c518;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .search-container button:hover {
+                background-color: #ffdd45;
+            }
+
+            /* Main Section  */
+            main {
+                max-width: 1200px;
+                margin: 0 auto;
+                margin-block: 40px;
+            }
+
+            main section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 90vh;
+                /* border: 2px solid red; */
+            }
+
+            .movie-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                box-shadow: 0px 0px 10px #ccc;
+                width: 90%;
+                border-radius: 5px;
+                /* border: 2px solid black; */
+            }
+
+            .movie-poster img {
+                height: 400px;
+                width: 90%;
+                margin-top: 10px;
+                margin-left: 20px;
+                border-radius: 3px;
+            }
+
+            .movie-info {
+                padding-inline: 10px;
+            }
+
+            .movie-info h2 {
+                text-align: center;
+                font-size: 20px;
+                margin: 20px 0px 10px 0px;
+            }
+
+            .movie-info h2+p {
+                text-align: center;
+            }
+
+            .movie-info .movie-genre {
+                display: flex;
+                justify-content: center;
+                margin-block: 5px;
+            }
+
+            .movie-info .movie-genre p {
+                background-color: #232f3e;
+                color: white;
+                padding: 5px 0px;
+                margin-inline: 2px;
+                border: 2px solid black;
+                border-radius: 5px;
+                font-weight: 700;
+            }
+
+            .movie-info p {
+                font-size: 17px;
+                margin-block: 5px;
+                line-height: 22px;
+            }
+
+            .noBackground {
+                box-shadow: none;
+                background: none;
+            }
+
+            /* FOOTER SECTION  */
+            footer {
+                text-align: center;
+                background-color: #232f3e;
+                color: white;
+                padding-block: 20px;
+                margin-top: 40px;
+                font-size: 17px;
+            }
+        }
+
+        @media(max-width: 575px) {
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* nav-bar  */
+            nav {
+                background-color: #232f3e;
+                color: white;
+            }
+
+            .navbar {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                height: 80px;
+                margin: 0 auto;
+                /* padding: 20px; */
+                /* border: 2px solid red; */
+            }
+
+            .search-container input,
+            button {
+                padding: 5px 10px;
+                border: none;
+                font-size: 16px;
+            }
+
+            .search-container input {
+                border-radius: 6px;
+            }
+
+            .search-container button {
+                border-radius: 6px;
+                background-color: #f5c518;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .search-container button:hover {
+                background-color: #ffdd45;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nav Bar  -->
+    <nav>
+        <div class="navbar">
+            <div class="logo">
+                <h1>Movie Guide App</h1>
+            </div>
+
+            <div class="search-container">
+                <form action="">
+                    <input type="text" placeholder="Search Movie" class="inputBox">
+                    <button type="submit" class="searchBtn">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN SECTION  -->
+    <main>
+        <section>
+            <div class="movie-container noBackground">
+                <h2>Search Movie Details Here.</h2>
+                <div class="movie-poster"></div>
+                <div class="movie-details"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER  -->
+    <footer>
+        <p>&copy; 2024 Movie Guide App</p>
+    </footer>
+
+    <script>
+        const searchForm = document.querySelector("form");
+        const inputBox = document.querySelector(".inputBox");
+        const btn = document.querySelector(".searchBtn");
+        const movieContainer = document.querySelector(".movie-container");
+        const moveiPoster = document.querySelector(".movie-poster");
+        const movieDetails = document.querySelector(".movie-details");
+
+        // Function to fetch Movie details by OMDB api 
+        const getMovieInfo = async (movie) => {
+            try {
+                const apiKey = "54b0e812";
+                const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=54b0e812&${apiKey}&t=${movie}`;
+
+                const response = await fetch(URL);
+
+                if (!response.ok) {
+                    throw new Error("Unable to fetch movie data");
+                }
+
+                const data = await response.json();
+
+                // console.log(data); 
+                showMovieData(data);
+
+            } catch (error) {
+                showErrorMessage("No Movie Found");
+            }
+        }
+
+        // Funciton to show movie data on screen 
+        const showMovieData = (data) => {
+            movieContainer.innerHTML = "";
+            movieContainer.classList.remove('noBackground');
+            // Array Destructuring 
+            const { Title, imdbRating, Released, Genre, Runtime, Actors, Plot, Poster, Director } = data;
+
+            const movieElement = document.createElement('div');
+            movieElement.classList.add('movie-info');
+            movieElement.innerHTML = `<h2>${Title}</h2> 
+                                      <p><strong>Rating : &#11088;</strong>${imdbRating}</p>`;
+
+            const movieGenreElement = document.createElement('div');
+            movieGenreElement.classList.add('movie-genre');
+
+            Genre.split(",").forEach(element => {
+                const p = document.createElement('p');
+                p.innerText = element;
+                movieGenreElement.appendChild(p);
+            });
+
+            movieElement.appendChild(movieGenreElement);
+
+            movieElement.innerHTML += `<p><strong>Released Date : </strong>${Released}</p>
+                                      <p><strong>Duration : </strong>${Runtime}</p> <p><strong>Director : </strong>${Director}</p> <p><strong>Cast : </strong>${Actors}</p> <p><strong>Plot : </strong>${Plot}</p>`;
+
+            //Creating a div for movie poster
+            const moviePosterElement = document.createElement('div');
+            moviePosterElement.classList.add('movie-poster');
+            moviePosterElement.innerHTML = `<img src="${Poster}"/>`;
+
+            movieContainer.appendChild(moviePosterElement);
+            movieContainer.appendChild(movieElement);
+        }
+
+        //function to display error message
+        const showErrorMessage = (message) => {
+            movieContainer.innerHTML = `<h2>${message}</h2>`;
+            movieContainer.classList.add('noBackground');
+        }
+
+        // Adding event listner to button 
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // console.log(inputBox.value); 
+            const movieName = inputBox.value.trim();
+            if (movieName !== '') {
+                getMovieInfo(movieName);
+            } else {
+                showErrorMessage("OOPS! Something Went Wrong Please Enter A Movie Name");
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
